@@ -1,40 +1,44 @@
-import { cn } from "@/utils/cn";
-import { AnimatePresence, motion } from "motion/react";
+"use client";
 
+import { cn } from "@/utils/cn";
+import { AnimatePresence, motion } from "framer-motion"; // Changed from "motion/react" to "framer-motion"
 import { useState } from "react";
 
-export const HoverEffect = ({
-  items,
-  className,
-}: {
-  items: {
-    title: string;
-    description: string;
-    link: string;
-  }[];
+interface HoverItem {
+  title: string;
+  description: string;
+  link: string;
+}
+
+interface HoverEffectProps {
+  items: HoverItem[];
   className?: string;
-}) => {
-  let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+}
+
+export const HoverEffect = ({ items, className }: HoverEffectProps) => {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
     <div
       className={cn(
-        "grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3  py-10",
+        "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-10",
         className
       )}
     >
       {items.map((item, idx) => (
         <a
-          href={item?.link}
-          key={item?.link}
-          className="relative group  block p-2 h-full w-full"
+          href={item.link}
+          key={`${item.link}-${idx}`} // More unique key
+          className="relative group block p-2 h-full w-full"
           onMouseEnter={() => setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}
+          target="_blank" // Added for better UX with links
+          rel="noopener noreferrer" // Security best practice
         >
           <AnimatePresence>
             {hoveredIndex === idx && (
               <motion.span
-                className="absolute inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block  rounded-3xl"
+                className="absolute inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block rounded-3xl"
                 layoutId="hoverBackground"
                 initial={{ opacity: 0 }}
                 animate={{
@@ -58,13 +62,12 @@ export const HoverEffect = ({
   );
 };
 
-export const Card = ({
-  className,
-  children,
-}: {
+interface CardProps {
   className?: string;
   children: React.ReactNode;
-}) => {
+}
+
+export const Card = ({ className, children }: CardProps) => {
   return (
     <div
       className={cn(
@@ -78,26 +81,26 @@ export const Card = ({
     </div>
   );
 };
-export const CardTitle = ({
-  className,
-  children,
-}: {
+
+interface CardTitleProps {
   className?: string;
   children: React.ReactNode;
-}) => {
+}
+
+export const CardTitle = ({ className, children }: CardTitleProps) => {
   return (
     <h4 className={cn("text-zinc-100 font-bold tracking-wide mt-4", className)}>
       {children}
     </h4>
   );
 };
-export const CardDescription = ({
-  className,
-  children,
-}: {
+
+interface CardDescriptionProps {
   className?: string;
   children: React.ReactNode;
-}) => {
+}
+
+export const CardDescription = ({ className, children }: CardDescriptionProps) => {
   return (
     <p
       className={cn(

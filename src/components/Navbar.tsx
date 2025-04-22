@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from "react";
-import { HoveredLink, Menu, MenuItem, ProductItem } from "./ui/navbar-menu"; //hoverlink uses next's link in behind
+import { HoveredLink, Menu, MenuItem} from "./ui/navbar-menu"; //hoverlink uses next's link in behind
 import { cn } from "@/utils/cn";
 import Link from "next/link";  
 
