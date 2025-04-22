@@ -30,7 +30,7 @@ export const WavyBackground = ({
 }: WavyBackgroundProps) => {
   const noise = createNoise3D();
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationIdRef = useRef<number>();
+  const animationIdRef = useRef<number>(null);
   
   const [dimensions, setDimensions] = useState({
     width: typeof window !== "undefined" ? window.innerWidth : 0,
@@ -38,6 +38,7 @@ export const WavyBackground = ({
   });
   const [isSafari, setIsSafari] = useState(false);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const waveColors = colors ?? [
     "#38bdf8",
     "#818cf8",
@@ -71,6 +72,7 @@ export const WavyBackground = ({
     }
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const render = (ctx: CanvasRenderingContext2D, nt: number) => {
     ctx.fillStyle = backgroundFill;
     ctx.globalAlpha = waveOpacity;
@@ -110,7 +112,7 @@ export const WavyBackground = ({
     canvas.height = dimensions.height;
     ctx.filter = `blur(${blur}px)`;
 
-    let nt = 0;
+    const nt = 0;
     render(ctx, nt);
 
     return () => {
@@ -118,7 +120,7 @@ export const WavyBackground = ({
         cancelAnimationFrame(animationIdRef.current);
       }
     };
-  }, [blur, dimensions, waveColors, waveWidth, backgroundFill, waveOpacity, speed]);
+  }, [blur, dimensions, waveColors, waveWidth, backgroundFill, waveOpacity, speed, render]);
 
   return (
     <div
@@ -140,3 +142,4 @@ export const WavyBackground = ({
       </div>
     </div>
   );
+};
