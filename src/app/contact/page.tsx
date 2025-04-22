@@ -3,7 +3,7 @@
 import React, { FormEvent, useState } from 'react';
 import { BackgroundBeams } from "@/components/ui/background-beams";
 
-function Page() {
+function MusicSchoolContactUs() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
 
@@ -59,4 +59,4 @@ function Page() {
   );
 }
 
-export default Page;
+export default MusicSchoolContactUs;
